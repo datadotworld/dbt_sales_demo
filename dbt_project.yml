@@ -1,0 +1,21 @@
+name: 'sales_demo'
+
+config-version: 2
+version: '0.1'
+
+profile: 'sales_demo'
+
+model-paths: ["models"]
+
+target-path: "target"
+clean-targets:
+    - "target"
+
+require-dbt-version: [">=1.0.0", "<2.0.0"]
+
+models:
+  sales_demo:
+      materialized: view
+
+vars:
+  source_schema: SQL_SERVER_DBO

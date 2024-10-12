@@ -1,0 +1,71 @@
+version: 2
+
+sources:
+  - name: sales_demo
+    schema: "{{ var('source_schema') }}"
+    tables:
+      - name: employee
+        description: "Employee table with personal and job-related information"
+        columns:
+          - name: employeeid
+            description: "Unique identifier for each employee"
+            tests:
+              - unique
+              - not_null
+          - name: firstname
+            description: "Employee's first name"
+          - name: lastname
+            description: "Employee's last name"
+          - name: departmentid
+            description: "Foreign key referencing the department"
+            tests:
+              - relationships:
+                  to: "{{ var('source_schema') }}.department"
+                  field: departmentid
+          - name: jobtitleid
+            description: "Foreign key referencing the job title"
+            tests:
+              - relationships:
+                  to: "{{ var('source_schema') }}.jobtitle"
+                  field: jobtitleid
+
+      - name: department
+        description: "Department details"
+        columns:
+          - name: departmentid
+            description: "Unique identifier for each department"
+            tests:
+              - unique
+              - not_null
+          - name: departmentname
+            description: "Name of the department"
+
+      - name: jobtitle
+        description: "Job title details"
+        columns:
+          - name: jobtitleid
+            description: "Unique identifier for each job title"
+            tests:
+              - unique
+              - not_null
+          - name: jobtitlename
+            description: "Name of the job title"
+
+      - name: timesheet
+        description: "Records of hours worked by employees by date"
+        columns:
+          - name: timesheetid
+            description: "Unique identifier for each timesheet entry"
+            tests:
+              - unique
+              - not_null
+          - name: employeeid
+            description: "Foreign key referencing the employee"
+            tests:
+              - relationships:
+                  to: "{{ var('source_schema') }}.employee"
+                  field: employeeid
+          - name: date
+            description: "Date of the timesheet entry"
+          - name: hoursworked
+            description: "Number of hours worked on the specified date"

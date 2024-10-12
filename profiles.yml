@@ -1,0 +1,16 @@
+sales_demo:
+
+  target: snowflake
+
+  outputs:
+
+    snowflake:
+      type: snowflake
+      account: "{{env_var('DBT_SNOWFLAKE_ACCOUNT')}}"
+      user: "{{env_var('DBT_SNOWFLAKE_USERNAME')}}"
+      password: "{{env_var('DBT_SNOWFLAKE_PASSWORD')}}"
+      warehouse: "{{env_var('DBT_SNOWFLAKE_WAREHOUSE')}}"
+      database: "{{env_var('DBT_SNOWFLAKE_DATABASE')}}"
+      role: ACCOUNTADMIN
+      schema: dbt_sales_demo
+      

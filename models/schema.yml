@@ -1,0 +1,49 @@
+version: 2
+
+models:
+  - name: employee_fact
+    description: "A fact table that combines employee information with their department and job title descriptions."
+    columns:
+      - name: employeeid
+        description: "Unique identifier for each employee"
+        tests:
+          - unique
+          - not_null
+      - name: firstname
+        description: "Employee's first name"
+      - name: lastname
+        description: "Employee's last name"
+      - name: departmentname
+        description: "Name of the department"
+      - name: jobtitlename
+        description: "Name of the job title"
+
+  - name: timesheet_fact
+    description: "A fact table that combines timesheet data with employee details and adds a column for the day of the week."
+    columns:
+      - name: timesheetid
+        description: "Unique identifier for each timesheet entry"
+        tests:
+          - unique
+          - not_null
+      - name: employeeid
+        description: "Foreign key referencing the employee"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('employee_fact')
+              field: employeeid
+      - name: date
+        description: "Date of the timesheet entry"
+      - name: day_of_week
+        description: "Day of the week for the timesheet entry"
+      - name: hoursworked
+        description: "Number of hours worked on the specified date"
+      - name: firstname
+        description: "Employee's first name"
+      - name: lastname
+        description: "Employee's last name"
+      - name: departmentname
+        description: "Name of the department"
+      - name: jobtitlename
+        description: "Name of the job title"
